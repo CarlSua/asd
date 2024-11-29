@@ -54,17 +54,17 @@
 
           <input
             type="text"
-            id="sensorlongitude"
-            placeholder="SensorLongitude"
-            required
-          />
-
-          <input
-            type="text"
             id="sensorlatitude"
             placeholder="SensorLatitude"
             required
           />
+
+          <input
+          type="text"
+          id="sensorlongitude"
+          placeholder="SensorLongitude"
+          required
+        />
 
           <input type="date" id="sensordate" required />
 
@@ -86,17 +86,11 @@
       <p><span class="circle red"></span> Flood Level 4: Heavy</p>
       <p><span class="circle orange"></span> Flood Level 3: Moderate</p>
       <p><span class="circle yellow"></span> Flood Level 2: Minor</p>
-      <p><span class="circle green"></span> Flood Level 1: Build Up</p>
+      <p><span class="circle blue"></span> Flood Level 1: Build Up</p>
     </div>
 
     <script src="buttonclick.js"></script>
     <script type="module" src="functions.js"> </script>
-    <script>
-      var map = L.map('map').setView([11.049660, 124.007310], 14);
-      var tileUrl = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=5ac93f341e474e76bec352bd73074fd1';
-      var layer = new L.TileLayer(tileUrl, { maxZoom: 18, minZoom: 3 });
-      map.addLayer(layer);
-    </script>
     </script>
   </body>
 </html>

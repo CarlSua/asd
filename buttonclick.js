@@ -40,7 +40,7 @@ window.addEventListener('click', (event) => {
 });
 
 document.getElementById('logout').addEventListener('click', function() {
-  window.location.href = 'login1.html';
+  window.location.href = 'login.html';
 });
 
 addSensorButton.addEventListener("click", () => {
@@ -75,9 +75,7 @@ window.addEventListener('click', (event) => {
   }
 });
 
-document.getElementById('logout').addEventListener('click', function() {
-  window.location.href = 'login1.html';
-});
+
 
 // Show modal when "Add New Sensor" button is clicked
 addSensorButton.addEventListener("click", () => {
@@ -112,8 +110,6 @@ window.addEventListener('click', (event) => {
   }
 });
 
-document.getElementById('logout').addEventListener('click', function() {
-  window.location.href = 'login1.html';
-});
+
 
 
