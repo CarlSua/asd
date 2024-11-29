@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BantayBaha Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <div></div>
+  <body>
+    <div class="header">
+      <img src="images/B.png" alt="" />
+      <div class="logo">
+        <h1>BantayBaha</h1>
+        <p>Flood Monitoring System and Early Warning System</p>
+      </div>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="lower">
+      <button class="btn" id="sensor">add new sensor</button>
+      <button class="btn" id="viewhistory">View History</button>
+      <button class="btn" id="viewAnalytics">View Analytics</button>
+      <button class="btn" id="logout">Log out</button>
+    </div>
+
+    <!-- Modal for adding a new sensor -->
+    <div id="sensorModal" class="sensormodal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3>Add New Sensor</h3>
+        <form id="addSensorForm">
+
+          <input
+            type="text"
+            id="sensorid"
+            required
+            placeholder="sensorid"
+          />
+
+          <input
+            type="text"
+            id="sensorlocation"
+            required
+            placeholder="SensorLocation"
+          />
+
+          <input
+            type="text"
+            id="sensorlongitude"
+            placeholder="SensorLongitude"
+            required
+          />
+
+          <input
+            type="text"
+            id="sensorlatitude"
+            placeholder="SensorLatitude"
+            required
+          />
+
+          <input type="date" id="sensordate" required />
+
+          <button id="addbtn">Add Sensor</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal for viewing history -->
+    <div id="historyModal" class="historymodal">
+      <div class="modal-content">
+        <span class="close-btn" id="closeHistoryModal">&times;</span>
+        <h3>View History</h3>
+        <p>Content related to viewing the history will go here.</p>
+      </div>
+    </div>
+
+    <div class="indicator">
+      <p><span class="circle red"></span> Flood Level 4: Heavy</p>
+      <p><span class="circle orange"></span> Flood Level 3: Moderate</p>
+      <p><span class="circle yellow"></span> Flood Level 2: Minor</p>
+      <p><span class="circle green"></span> Flood Level 1: Build Up</p>
+    </div>
+
+    <script src="buttonclick.js"></script>
+    <script type="module" src="functions.js"> </script>
+    <script>
+      var map = L.map('map').setView([11.049660, 124.007310], 14);
+      var tileUrl = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=5ac93f341e474e76bec352bd73074fd1';
+      var layer = new L.TileLayer(tileUrl, { maxZoom: 18, minZoom: 3 });
+      map.addLayer(layer);
+    </script>
+    </script>
+  </body>
+</html>

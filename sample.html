@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="number" id="sensorid" required placeholder="sensorid" />
+    <input
+      type="text"
+      id="sensorLocation"
+      required
+      placeholder="SensorLocation"
+    />
+    <input
+      type="text"
+      id="sensorLongitude"
+      placeholder="SensorLongitude"
+      required
+    />
+    <input
+      type="text"
+      id="sensorLatitude"
+      placeholder="SensorLatitude"
+      required
+    />
+    <input type="date" id="sensorDate" required />
+    <button id="addbtn">Add Sensor</button>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+      import {
+        getDatabase,
+        ref,
+        child,
+        get,
+        set,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBdNOR_Ef9X4z8besQSUEZLpMK7MUJnaQU",
+        authDomain: "bantaybaha-a979c.firebaseapp.com",
+        databaseURL:
+          "https://bantaybaha-a979c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "bantaybaha-a979c",
+        storageBucket: "bantaybaha-a979c.firebasestorage.app",
+        messagingSenderId: "372869446193",
+        appId: "1:372869446193:web:10ab97ac79ea2f6dfb7310",
+        measurementId: "G-G25990LRGL",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getDatabase(app);
+
+      // Get form elements
+      let location = document.getElementById("sensorLocation");
+      let sensorlat = document.getElementById("sensorLatitude");
+      let sensorlong = document.getElementById("sensorLongitude");
+      let datecreated = document.getElementById("sensorDate");
+      let sensorid = document.getElementById("sensorid");
+      let addbtn = document.getElementById("addbtn");
+
+      function AddData() {
+        set(ref(db, "sensors/" + sensorid.value), {
+          location: location.value,
+          sensorlat: sensorlat.value,
+          sensorlong: sensorlong.value,
+          datacreated: datecreated.value,
+          sensorid: Number(sensorid.value),
+          status: "",
+          reading: "",
+        })
+          .then(() => {
+            alert("Sensor Added Successfully!");
+          })
+          .catch((error) => {
+            alert("Unsuccessful: " + error.message);
+            console.error(error);
+          });
+      }
+
+      function RetData() {
+        const dbRef = ref(db);
+
+        get(child(dbRef, "sensors/" + sensorid.value))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              location.value = snapshot.val().location;
+              sensorlat.value = snapshot.val().sensorlat;
+              sensorlong.value = snapshot.val().sensorlong;
+              datecreated.value = snapshot.val().datacreated;
+            } else {
+              alert("Sensor does not exist");
+            }
+          })
+          .catch((error) => {
+            alert("Error retrieving data: " + error.message);
+            console.error(error);
+          });
+      }
+
+      addbtn.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent form submission if inside a form
+        AddData();
+      });
+    </script>
+  </body>
+</html>

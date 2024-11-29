@@ -1,0 +1,252 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* Ensure there's no overflow on smaller screens */
+}
+
+.header img{
+  position: absolute;
+  height: 80px;
+  left: 30px;
+}
+
+input{
+  margin-top: 15px;
+}
+
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: rgb(0, 11, 168);
+  box-shadow: 1px 1px black;
+  background-image: url(images/background.jpg);
+  background-size: cover;
+  background-blend-mode: multiply;
+  position: relative; /* Ensure it stays at the top */
+}
+
+.logo {
+  position: absolute;
+  left: 120px;
+  margin-top: 0px;
+  display: flex;
+}
+
+.logo p {
+  position: absolute;
+  width: 300px;
+  left: 325px;
+  top: 20px;
+  line-height: 1.2;
+}
+
+.logo h1 {
+  font-size: 50px;
+}
+
+/* Adjusted height for the map to fit in the available space */
+#map {
+  position: absolute; /* Change to absolute positioning */
+  top: 80px; /* Move down by the header height */
+  bottom: 50px; /* Set bottom to the height of the lower div */
+  width: 100%; /* Full width */
+  z-index: 1; /* Ensure map is behind the indicator */
+}
+
+.lower {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(0, 11, 168);
+    box-shadow: 1px 1px black;
+    background-image: url(images/background.jpg);
+    background-size: cover;
+    background-blend-mode: multiply;
+    position: absolute; /* Change to absolute positioning */
+    bottom: 0; /* Fixes position at the bottom */
+}
+
+.indicator {
+  background-color: white;
+  height: 120px;
+  width: 180px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  right: 30px;
+  top: 100px; /* Adjust the top position if needed */
+  padding: 15px;
+  z-index: 2; /* Ensure indicator is above the map */
+}
+
+.indicator p {
+  color: black;
+  margin: 10px 0; /* Adjust spacing between lines */
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.green {
+  background-color: green;
+}
+
+.btn {
+  padding: 3px 20px;
+  margin: 10px;
+  background-color: white;
+  color: rgb(0, 11, 168);
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: lightgray;
+}
+
+.lower {
+  display: flex;
+  align-items: center;
+}
+
+#logout{
+  margin-left: 1000px;
+}
+
+
+
+.hidden {
+  display: none;
+}
+
+canvas {
+  max-width: 100%;
+  height: 400px;
+}
+
+.sensormodal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content Box */
+.modal-content {
+  background: linear-gradient(145deg, #0e3261, #020140); /* Subtle blue gradient */
+  color: white;
+  padding: 30px;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Softer shadow */
+  text-align: left;
+}
+
+/* Close Button */
+.close-btn {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  color: #d1eaff;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ffffff; /* White on hover */
+}
+
+/* Title Styling */
+.modal-content h3 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Form Styling */
+#addSensorForm label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #cfe2ff; /* Light blue label color */
+}
+
+#addSensorForm input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f1f5fc; /* Light background for inputs */
+  color: #333; /* Darker input text color */
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Button Styling */
+#addSensorForm button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff9800; /* Orange for contrast */
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+#addSensorForm button:hover {
+  background-color: #ffb74d; /* Lighter orange on hover */
+}
+
+.historymodal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+
