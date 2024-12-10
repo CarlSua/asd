@@ -187,3 +187,19 @@ img:focus {
     border: 1px solid #ccc;
 }
 
+h1{
+    font-size: 12px;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s forwards; /* Adjust duration as needed */
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,533 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* Ensure there's no overflow on smaller screens */
+}
+
+.header img{
+  position: absolute;
+  height: 80px;
+  left: 30px;
+}
+
+input{
+  margin-top: 15px;
+}
+
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: rgb(0, 11, 168);
+  box-shadow: 1px 1px black;
+  background-image: url(images/background.jpg);
+  background-size: cover;
+  background-blend-mode: multiply;
+  position: relative; /* Ensure it stays at the top */
+}
+
+.logo {
+  position: absolute;
+  left: 120px;
+  margin-top: 0px;
+  display: flex;
+}
+
+#logoimagehead{
+  cursor: pointer;
+}
+
+.logo p{
+  position: absolute;
+  width: 300px;
+  left: 350px;
+  top: 20px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.logo h1 {
+  font-size: 50px;
+  cursor: pointer;
+}
+
+/* Adjusted height for the map to fit in the available space */
+#map {
+  position: absolute; /* Change to absolute positioning */
+  top: 80px; /* Move down by the header height */
+  bottom: 50px; /* Set bottom to the height of the lower div */
+  width: 100%; /* Full width */
+  z-index: 1; /* Ensure map is behind the indicator */
+}
+
+.lower {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(0, 11, 168);
+    box-shadow: 1px 1px black;
+    background-image: url(images/background.jpg);
+    background-size: cover;
+    background-blend-mode: multiply;
+    position: absolute; /* Change to absolute positioning */
+    bottom: 0; /* Fixes position at the bottom */
+}
+
+.indicator {
+  background-color: white;
+  height: 140px;
+  width: 180px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  right: 30px;
+  top: 100px; /* Adjust the top position if needed */
+  padding: 15px;
+  z-index: 2; /* Ensure indicator is above the map */
+}
+
+.indicator p {
+  color: black;
+  margin: 10px 0; /* Adjust spacing between lines */
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.indicator h1{
+  color: black;
+  font-size: 15px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+
+}
+
+.circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.btn {
+  padding: 3px 20px;
+  margin: 10px;
+  background-color: white;
+  color: rgb(0, 11, 168);
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: lightgray;
+}
+
+.lower {
+  display: flex;
+  align-items: center;
+}
+
+#logout{
+  margin-left: 840px;
+}
+
+
+
+.hidden {
+  display: none;
+}
+
+canvas {
+  max-width: 100%;
+  height: 400px;
+}
+
+.sensormodal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content Box */
+.modal-content {
+  background: linear-gradient(145deg, #0e3261, #020140); /* Subtle blue gradient */
+  color: white;
+  padding: 30px;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Softer shadow */
+  text-align: left;
+}
+
+/* Close Button */
+.close-btn {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  color: #d1eaff;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ffffff; /* White on hover */
+}
+
+/* Title Styling */
+.modal-content h3 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Form Styling */
+#addSensorForm label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #cfe2ff; /* Light blue label color */
+}
+
+#addSensorForm input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f1f5fc; /* Light background for inputs */
+  color: #333; /* Darker input text color */
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Button Styling */
+#addSensorForm button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff9800; /* Orange for contrast */
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+#addSensorForm button:hover {
+  background-color: #ffb74d; /* Lighter orange on hover */
+}
+
+#historyModal {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1300px;
+  height: 450px;
+  background-color: #07034f; /* White background */
+  border: 1px solid #ccc; /* Light border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  border-radius: 8px; /* Rounded corners */
+  z-index: 1000; /* Ensure it appears on top */
+  padding: 20px; /* Inner padding */
+}
+
+#historyModal .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+#historyModal h3 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#historyModal p {
+  text-align: center;
+  margin: 20px 0;
+}
+
+ /* Modal background overlay */
+ #confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it is above other content */
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+/* Modal buttons container */
+.modal-buttons {
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Confirm button styling */
+#confirm-delete-btn {
+  background-color: #d9534f;
+  color: white;
+}
+
+/* Cancel button styling */
+#cancel-delete-btn {
+  background-color: #5bc0de;
+  color: white;
+}
+
+
+#updateModal {
+  width: 100px;
+  display: none;
+  position: absolute;
+  z-index: 500;
+  left: 10%;
+  top: 20%;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Softer shadow for depth */
+}
+
+.modal-content label{
+  position: flex;
+  margin-left: 30px;
+
+}
+
+.modal-input{
+  margin-left: 10px;
+  padding-left: 2px;
+}
+.modal-input3{
+  margin-left: 22px;
+}
+
+.modal-buttons{
+  margin-left: 45px;
+}
+
+.modal-buttons button{
+  padding: 5px 30px;
+}
+
+#updateModal h3{
+  color: white;
+  font-weight: 400;
+}
+
+#updateModal button{
+  color: rgb(255, 255, 255);
+  background-color: #ff9800;
+
+}
+#updateModal label{
+  font-size: 13px;
+}
+#updateModal input{
+  font-size: 13px;
+  color: black;
+  width: 250;
+}
+
+.modal-content {
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+  color: #333; /* Darker color for better readability */
+}
+
+
+#historyModal {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1300px;
+  height: 450px;
+  background-color: #07034f; /* White background */
+  border: 1px solid #ccc; /* Light border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  border-radius: 8px; /* Rounded corners */
+  z-index: 1000; /* Ensure it appears on top */
+  padding: 20px; /* Inner padding */
+}
+
+
+#historyModal h3 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#historyModal p {
+  text-align: center;
+  margin: 20px 0;
+}
+
+
+
+#fill{
+  background-color: white ;
+  width: 1300px;
+  height: 25px;
+  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: row; /* Arrange items in a column */
+  gap: 10px; /* Add spacing between buttons */
+  align-items: center; /* Center buttons horizontally */
+} 
+
+#closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f44336; /* Red color for the close button */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#closeButton:hover {
+  background-color: #d32f2f; /* Darker red for hover effect */
+}
+
+#fill label{
+  color: #020140;
+  font-size: 12px;
+}
+
+#fill input{
+  margin-bottom: 15px;
+  width: 150px;
+  color: #020140;
+  border: 1px solid;
+}
+
+#fill option{
+  width: 150px;
+  color: #020140;
+}
+
+#fill select{
+  color: #020140;
+  border: 1px solid;
+}
+
+#historycontainer{
+  width: 1300px;
+  height: 380px;
+  background-color: white;
+  position: absolute;
+  margin-top: 60px;
+}
+
+
+#analyticsmodal {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1300px;
+  height: 450px;
+  background-color: #ffffff; /* White background */
+  border: 1px solid #ccc; /* Light border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  border-radius: 8px; /* Rounded corners */
+  z-index: 1000; /* Ensure it appears on top */
+  padding: 20px; /* Inner padding */
+}
+
+#createacc{
+  height: 400px;
+  width: 400px;
+  background-color: blue;
+  position: fixed;
+  z-index: 1000; /* Ensure it appears on top */
+  left: 20%;
+}
+
+#createacc .label{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+}
+
+#createacc .input{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin-left: 150px;
+}
+

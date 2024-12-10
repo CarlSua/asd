@@ -1,36 +1,46 @@
 const addSensorButton = document.getElementById("sensor");
 const sensorModal = document.getElementById("sensorModal");
-const closeBtn = document.querySelector(".close-btn");
 const viewHistoryButton = document.getElementById('viewhistory');
 const historyModal = document.getElementById('historyModal');
 const closeHistoryModalButton = document.getElementById('closeHistoryModal');
+const viewAnalyticsButton = document.getElementById('viewAnalytics');
+const analyticsmodal = document.getElementById('analyticsmodal');
 
-
-// Show modal when "Add New Sensor" button is clicked
 addSensorButton.addEventListener("click", () => {
   sensorModal.style.display = "flex";
 });
 
-// Close modal when the close button is clicked
-closeBtn.addEventListener("click", () => {
-  sensorModal.style.display = "none";
-});
 
-// Close modal when clicking outside the modal content
+
+function closesensor() {
+  document.getElementById("sensorModal").style.display = "none";
+}
+
 window.addEventListener("click", (event) => {
   if (event.target === sensorModal) {
     sensorModal.style.display = "none";
   }
 });
 
+
 viewHistoryButton.addEventListener('click', () => {
   historyModal.style.display = 'flex';
 });
+
+
+
+viewAnalyticsButton.addEventListener('click', () => {
+  analyticsmodal.style.display = 'flex';
+});
+
+
 
 // Close the modal when the close button is clicked
 closeHistoryModalButton.addEventListener('click', () => {
   historyModal.style.display = 'none';
 });
+
+
 
 // Close the modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
@@ -39,9 +49,10 @@ window.addEventListener('click', (event) => {
   }
 });
 
-document.getElementById('logout').addEventListener('click', function() {
+function logout() {
+  // Redirect to login.html
   window.location.href = 'login.html';
-});
+}
 
 addSensorButton.addEventListener("click", () => {
   sensorModal.style.display = "flex";
@@ -57,11 +68,7 @@ window.addEventListener("click", (event) => {
   if (event.target === sensorModal) {
     sensorModal.style.display = "none";
   }
-});
-
-viewHistoryButton.addEventListener('click', () => {
-  historyModal.style.display = 'flex';
-});
+})
 
 // Close the modal when the close button is clicked
 closeHistoryModalButton.addEventListener('click', () => {
@@ -74,7 +81,6 @@ window.addEventListener('click', (event) => {
     historyModal.style.display = 'none';
   }
 });
-
 
 
 // Show modal when "Add New Sensor" button is clicked
@@ -94,15 +100,6 @@ window.addEventListener("click", (event) => {
   }
 });
 
-viewHistoryButton.addEventListener('click', () => {
-  historyModal.style.display = 'flex';
-});
-
-// Close the modal when the close button is clicked
-closeHistoryModalButton.addEventListener('click', () => {
-  historyModal.style.display = 'none';
-});
-
 // Close the modal when clicking outside of the modal content
 window.addEventListener('click', (event) => {
   if (event.target === historyModal) {
@@ -110,6 +107,22 @@ window.addEventListener('click', (event) => {
   }
 });
 
+function openModal() {
+  const modal = document.getElementById('updateModal');
+  modal.style.display = 'flex'; // Display the modal
+}
+
+
+function closeModal() {
+  document.getElementById('historyModal').style.display = 'none';
+}
 
 
 
+function closeModal2() {
+  document.getElementById('analyticsmodal').style.display = 'none';
+}
+
+function closeupdate() {
+  document.getElementById("updateModal").style.display = "none";
+}
