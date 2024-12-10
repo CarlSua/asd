@@ -79,7 +79,7 @@ input{
 
 .indicator {
   background-color: white;
-  height: 140px;
+  height: 160px;
   width: 180px;
   position: absolute;
   justify-content: center;
@@ -130,6 +130,10 @@ input{
 
 .blue {
   background-color: blue;
+}
+
+.black{
+  background-color: rgb(68, 68, 68);
 }
 
 .btn {
@@ -531,3 +535,18 @@ canvas {
   margin-left: 150px;
 }
 
+.warning-icon-blinking {
+  animation: blink-animation 0.5s infinite;
+}
+
+@keyframes blink-animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

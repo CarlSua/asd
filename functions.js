@@ -3,7 +3,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 import {
   getDatabase,
   ref,
-  get,
   set,
   onValue,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
@@ -107,30 +106,61 @@ function retrieveAndUpdateSensors() {
   });
 }
 
+const warningIcons = {};
+
+// Function to add a warning icon
+function addWarningIcon(lat, long, sensorId) {
+  const warningIcon = L.divIcon({
+    className: 'warning-icon warning-icon-blinking',
+    html: '<i class="fa fa-exclamation-triangle" style="color: red; font-size: 20px;"></i>',
+    iconAnchor: [-5, 15],
+  });
+
+  // Add the warning icon next to the marker
+  const warningMarker = L.marker([lat + 0.0001, long + 0.0001], { icon: warningIcon }).addTo(map);
+
+  // Store the reference of the warning icon using the sensorId
+  warningIcons[sensorId] = warningMarker;
+}
+
+// Function to remove a warning icon
+function removeWarningIcon(sensorId) {
+  const warningMarker = warningIcons[sensorId];
+  if (warningMarker) {
+    map.removeLayer(warningMarker); 
+    delete warningIcons[sensorId]; 
+  }
+}
+
 // Function to create a custom marker and add it to the map
 function createCustomMarker(lat, long, location, reading, status, sensorId) {
-  // Parse the reading as a number (assuming reading is stored as a string in the database)
   const parsedReading = parseFloat(reading);
 
-  // Determine the marker color based on the reading
   let markerColor;
   if (parsedReading <= 0.7) {
     markerColor = 'red';
-  } else if (parsedReading <= 1) {
-    markerColor = 'orange';
-  } else if (parsedReading <= 2) {
-    markerColor = 'yellow';
+    addWarningIcon(lat, long, sensorId); // Add warning icon
   } else {
-    markerColor = 'blue'; // Build-up color
+    // Remove the warning icon if the reading improves
+    removeWarningIcon(sensorId);
+    if (parsedReading <= 1) {
+      markerColor = 'orange';
+    } else if (parsedReading <= 2) {
+      markerColor = 'yellow';
+    } else if (parsedReading <= 5) {
+      markerColor = 'blue';
+    } else {
+      markerColor = 'grey';
+    }
   }
 
   const marker = L.circleMarker([lat, long], {
-    color: 'black',        // Border color
-    fillColor: markerColor, // Dynamic fill color based on reading
+    color: 'black',
+    fillColor: markerColor,
     fillOpacity: 1,
     radius: 8,
     weight: 2,
-    sensorId: sensorId,    // Add the sensorId to marker options for reference
+    sensorId: sensorId, // Add the sensorId to marker options for reference
   }).addTo(map);
 
   // Create a styled popup with real-time data
