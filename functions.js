@@ -32,32 +32,56 @@ let location = document.getElementById("sensorlocation");
 let sensorlat = document.getElementById("sensorlatitude");
 let sensorlong = document.getElementById("sensorlongitude");
 let datecreated = document.getElementById("sensordate");
-let sensorid = document.getElementById("sensorid");
 let addbtn = document.getElementById("addbtn");
 
 function AddData() {
-  set(ref(db, "sensors/" + sensorid.value), {
-    location: location.value,
-    sensorlat: sensorlat.value,
-    sensorlong: sensorlong.value,
-    datecreated: datecreated.value,
-    sensorid: Number(sensorid.value),
-    status: "Working",
-    reading: "",
-  })
-    .then(() => {
-      alert("Sensor Added Successfully!");
+  const sensorsRef = ref(db, "sensors");
+
+  // Retrieve the current maximum sensorid
+  onValue(sensorsRef, (snapshot) => {
+    let maxSensorId = 0;
+
+    if (snapshot.exists()) {
+      const sensors = snapshot.val();
+      Object.keys(sensors).forEach((key) => {
+        const sensor = sensors[key];
+        if (sensor.sensorid > maxSensorId) {
+          maxSensorId = sensor.sensorid;
+        }
+      });
+    }
+
+    // Increment the maxSensorId for the new sensor
+    const newSensorId = maxSensorId + 1;
+
+    // Set the new sensor data
+    set(ref(db, "sensors/" + newSensorId), {
+      location: location.value,
+      sensorlat: sensorlat.value,
+      sensorlong: sensorlong.value,
+      datecreated: datecreated.value,
+      sensorid: newSensorId,
+      status: "Working",
+      reading: "",
     })
-    .catch((error) => {
-      alert("Unsuccessful: " + error.message);
-      console.error(error);
-    });
+      .then(() => {
+        alert("Sensor Added Successfully!");
+      })
+      .catch((error) => {
+        alert("Unsuccessful: " + error.message);
+        console.error(error);
+      });
+  }, {
+    onlyOnce: true // Ensure the listener retrieves data only once
+  });
 }
 
+// Attach the add button event listener
 addbtn.addEventListener("click", (event) => {
   event.preventDefault(); // Prevent form submission if inside a form
-  AddData();  
+  AddData();
 });
+
 
 // Function to listen for real-time data and update markers dynamically
 function retrieveAndUpdateSensors() {
@@ -207,15 +231,23 @@ function createCustomMarker(lat, long, location, reading, status, sensorId) {
 
 // Function to delete a sensor from the database
 function deleteSensor(sensorId) {
-  const sensorRef = ref(db, `sensors/${sensorId}`);
-  set(sensorRef, null)
-    .then(() => {
-      alert("Sensor deleted successfully!");
-    })
-    .catch((error) => {
-      alert("Error deleting sensor: " + error.message);
-      console.error(error);
-    });
+  // Show confirmation dialog
+  const isConfirmed = confirm("Are you sure you want to delete this sensor?");
+
+  if (isConfirmed) {
+    const sensorRef = ref(db, `sensors/${sensorId}`);
+
+    set(sensorRef, null)
+      .then(() => {
+        alert("Sensor deleted successfully!");
+      })
+      .catch((error) => {
+        alert("Error deleting sensor: " + error.message);
+        console.error(error);
+      });
+  } else {
+    alert("Deletion canceled.");
+  }
 }
 
 function openUpdateModal(sensorData) {
