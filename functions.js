@@ -95,6 +95,13 @@ function retrieveAndUpdateSensors() {
         // Create marker for each sensor
         const marker = createCustomMarker(lat, long, location, reading, status, key);
 
+        const parsedReading = parseFloat(reading);
+        if (parsedReading <= 0.7) {
+          addWarningIcon(lat, long, key); // Add warning icon for critical reading
+        } else {
+          removeWarningIcon(key); // Remove warning icon if reading improves
+        }
+
         // Reopen the popup if it was previously open
         if (key === currentlyOpenPopupId) {
           marker.openPopup();
@@ -104,6 +111,11 @@ function retrieveAndUpdateSensors() {
       console.log("No data available.");
     }
   });
+
+  // Optionally, use setInterval to force periodic checks
+  setInterval(() => {
+    retrieveAndUpdateSensors();
+  }, 30000); // Call the function every 30 seconds or any desired interval
 }
 
 const warningIcons = {};
@@ -139,19 +151,14 @@ function createCustomMarker(lat, long, location, reading, status, sensorId) {
   let markerColor;
   if (parsedReading <= 0.7) {
     markerColor = 'red';
-    addWarningIcon(lat, long, sensorId); // Add warning icon
+  } else if (parsedReading <= 1) {
+    markerColor = 'orange';
+  } else if (parsedReading <= 2) {
+    markerColor = 'yellow';
+  } else if (parsedReading <= 5) {
+    markerColor = 'blue';
   } else {
-    // Remove the warning icon if the reading improves
-    removeWarningIcon(sensorId);
-    if (parsedReading <= 1) {
-      markerColor = 'orange';
-    } else if (parsedReading <= 2) {
-      markerColor = 'yellow';
-    } else if (parsedReading <= 5) {
-      markerColor = 'blue';
-    } else {
-      markerColor = 'grey';
-    }
+    markerColor = 'grey';
   }
 
   const marker = L.circleMarker([lat, long], {
