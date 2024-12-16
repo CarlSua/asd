@@ -22,7 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-var map = L.map('map').setView([11.046556122600492, 124.002498512228], 15);
+var map = L.map('map').setView([11.046556122600492, 124.002498512228], 13);
 var tileUrl = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=5ac93f341e474e76bec352bd73074fd1';
 var layer = new L.TileLayer(tileUrl, { maxZoom: 18, minZoom: 3 });
 map.addLayer(layer);
@@ -334,3 +334,91 @@ document.querySelectorAll('#logoimagehead, .logo h1, .logo p').forEach(element =
     window.location.href = 'homepage.html'; // Navigates to homepage.html when clicked
   });
 });
+
+// Function to fetch locations and populate the dropdown
+function populateLocationOptions() {
+  const sensorsRef = ref(db, "sensors"); // Reference to the 'sensors' node in Firebase RTDB
+  onValue(sensorsRef, (snapshot) => {
+    const sensors = snapshot.val();
+    const locationSelect = document.getElementById("location");
+
+
+    if (sensors) {
+      // Create a Set to store unique locations
+      const locationsSet = new Set();
+
+      // Iterate through sensors and add their locations to the Set (which removes duplicates)
+      Object.keys(sensors).forEach((key) => {
+        const sensor = sensors[key];
+        if (sensor.location) {
+          locationsSet.add(sensor.location);
+        }
+      });
+
+      // Convert the Set back to an array and create an option for each unique location
+      locationsSet.forEach((location) => {
+        const option = document.createElement("option");
+        option.value = location; // Set the location as the option value
+        option.textContent = location; // Set the location as the option text
+        locationSelect.appendChild(option);
+      });
+    } else {
+      console.log("No sensors data available.");
+    }
+  });
+}
+
+
+const historyRef = ref(db, 'history/1'); // Path to the '1' node under 'history'
+
+// Function to fetch data from RTDB and update the table
+function fetchHistoryData() {
+  // Listen for changes in the 'history/1' node
+  onValue(historyRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const history = snapshot.val();
+      const tbody = document.querySelector("#sensorTable tbody"); // Get the tbody of the table
+
+      // Clear any existing rows before adding new data
+      tbody.innerHTML = "";
+
+      // Iterate through each timestamp in the history data
+      Object.keys(history).forEach((timestamp) => {
+        const reading = history[timestamp]; // Get the water level reading for this timestamp
+
+        // Convert timestamp to a human-readable date (optional)
+        const date = new Date(timestamp).toLocaleString(); // Converts to a formatted date string
+
+        // Create a new row for the table
+        const row = document.createElement("tr");
+
+        const locationIdCell = document.createElement("td");
+        locationIdCell.textContent = "Cebu Roosevelt Memorial Colleges"; // Default location ID
+        row.appendChild(locationIdCell);
+
+        // Create and append the cells
+        const timestampCell = document.createElement("td");
+        timestampCell.textContent = date; // Display the formatted timestamp
+        row.appendChild(timestampCell);
+
+        const readingCell = document.createElement("td");
+        readingCell.textContent = reading; // Display the reading (water level)
+        row.appendChild(readingCell);
+
+        // Append the row to the table body
+        tbody.appendChild(row);
+      });
+    } else {
+      console.log("No history data available.");
+    }
+  });
+}
+
+
+// Call this function to populate the dropdown when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  populateLocationOptions(); // Populate the location options
+  retrieveAndUpdateSensors(); // Initialize real-time listener for sensor markers
+  fetchHistoryData();
+});
+

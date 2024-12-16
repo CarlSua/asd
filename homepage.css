@@ -62,7 +62,7 @@ input{
   top: 80px; /* Move down by the header height */
   bottom: 50px; /* Set bottom to the height of the lower div */
   width: 100%; /* Full width */
-  z-index: 1; /* Ensure map is behind the indicator */
+  z-index: 1;
 }
 
 .lower {
@@ -210,7 +210,7 @@ canvas {
 }
 
 /* Title Styling */
-.modal-content h3 {
+.modal-content h4 {
   text-align: center;
   font-weight: bold;
   margin-bottom: 20px;
@@ -550,3 +550,41 @@ canvas {
     opacity: 1;
   }
 }
+
+#sensorTable {
+  width: 100%; /* Adjust the width of the table */
+  border-collapse: collapse; /* Collapse the borders between cells */
+}
+
+/* Styling for table headers */
+#sensorTable th {
+  background-color: #17209b; /* Light gray background for the header */
+  color: rgb(243, 242, 242); /* Text color in the header */
+  padding: 5px 15px; /* Padding inside header cells */
+  text-align: center; /* Center align text */
+  border: 1px solid grey; /* Black border around header cells */
+  font-size: 15px;
+}
+
+/* Styling for table data cells */
+#sensorTable td {
+  color: black; /* Text color inside cells */
+  padding: 10px 15px; /* Padding inside data cells */
+  text-align: center; /* Center align text in the cells */
+  border: 1px solid black; /* Black border around data cells */
+}
+
+/* Make the tbody scrollable */
+#sensorTable tbody {
+  display: block;
+  max-height: 350px; /* Set the height you want */
+  overflow-y: auto; /* Enable vertical scrolling */
+  width: 100%;
+}
+
+#sensorTable thead, #sensorTable tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
