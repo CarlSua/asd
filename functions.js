@@ -422,3 +422,47 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchHistoryData();
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  const ctx = document.getElementById('lineChart').getContext('2d');
+
+  const lineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
+          datasets: [
+              {
+                  label: 'DATA VISUALIZATION',
+                  data: [10, 20, 15, 25, 30],
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderWidth: 2,
+                  tension: 0.4, /* Smooth curves */
+              },
+          ],
+      },
+      options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+              legend: {
+                  display: true,
+                  position: 'top',
+              },
+          },
+          scales: {
+              x: {
+                  title: {
+                      display: true,
+                      text: 'Months',
+                  },
+              },
+              y: {
+                  title: {
+                      display: true,
+                      text: 'Value',
+                  },
+              },
+          },
+      },
+  });
+});

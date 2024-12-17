@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
@@ -37,7 +38,7 @@
     <div class="lower">
       <button class="btn" id="sensor">add new sensor</button>
       <button class="btn" id="viewhistory">View History</button>
-      <button class="btn" id="viewAnalytics" >View Analytics</button>
+      <button class="btn" id="viewAnalytics">View Analytics</button>
       <button class="btn" id="createaccount">Create Account</button>
       <button class="btn" id="logout" onclick="logout()">Log out</button>
     </div>
@@ -78,41 +79,43 @@
       </div>
     </div>
 
-<div id="updateModal" class="modal">
-  <div class="modal-content">
-    <h3 class="modal-header">Update Sensor</h3>
 
-    
-    <div class="modal-field">
-      <label for="update-location">Location:</label>
-      <input type="text" id="update-location" class="modal-input">
-    </div>
+    <!-- UPDATE MODAL -->
+    <div id="updateModal" class="modal">
+      <div class="modal-content">
+        <h3 class="modal-header">Update Sensor</h3>
 
-    <div class="modal-field">
-      <label for="update-sensorlatitude">Latitude:</label>
-      <input type="text" id="update-sensorlatitude" class="modal-input" >
-    </div>
+        
+        <div class="modal-field">
+          <label for="update-location">Location:</label>
+          <input type="text" id="update-location" class="modal-input">
+        </div>
 
-    <div class="modal-field">
-      <label for="update-sensorlongitude">Longitude:</label>
-      <input type="text" id="update-sensorlongitude" class="modal-input">
+        <div class="modal-field">
+          <label for="update-sensorlatitude">Latitude:</label>
+          <input type="text" id="update-sensorlatitude" class="modal-input" >
+        </div>
+
+        <div class="modal-field">
+          <label for="update-sensorlongitude">Longitude:</label>
+          <input type="text" id="update-sensorlongitude" class="modal-input">
+        </div>
+        
+        <div class="modal-field">
+          <label for="update-status">Status:</label>
+          <select id="update-status" class="modal-input">
+            <option value="Working">Working</option>
+            <option value="Under Maintenance">Under Maintenance</option>
+            <option value="Offline">Offline</option>
+            <option value="Pending Repair">Pending Repair</option>
+          </select>
+        </div>
+        <div class="modal-buttons">
+          <button id="save-update-btn" class="modal-button save">Save</button>
+          <button onclick="closeupdate()" class="modal-button cancel">Cancel</button>
+        </div>
+      </div>
     </div>
-    
-    <div class="modal-field">
-      <label for="update-status">Status:</label>
-      <select id="update-status" class="modal-input">
-        <option value="Working">Working</option>
-        <option value="Under Maintenance">Under Maintenance</option>
-        <option value="Offline">Offline</option>
-        <option value="Pending Repair">Pending Repair</option>
-      </select>
-    </div>
-    <div class="modal-buttons">
-      <button id="save-update-btn" class="modal-button save">Save</button>
-      <button onclick="closeupdate()" class="modal-button cancel">Cancel</button>
-    </div>
-  </div>
-</div>
 
     
 
@@ -129,7 +132,6 @@
           <label for="endDate">End Date:</label>
           <input type="date" id="endDate" name="endDate">
       </div>
-
       <div id="historycontainer">
         <table id="sensorTable">
           <thead>
@@ -144,9 +146,22 @@
           </tbody>
         </table>
       </div>
+    </div>
 
-    <div onclick="" id="analyticsmodal">
+    
+    <div id="analyticsmodal">
+      <!-- Close Button -->
       <button id="closeButton" onclick="closeModal2()">X</button>
+  
+      <!-- Left Container -->
+      <div id="leftContainer">
+          <p>Left Content</p>
+      </div>
+  
+      <!-- Right Container -->
+      <div id="rightContainer">
+        <canvas id="lineChart"></canvas>
+      </div>
     </div>
     
     
