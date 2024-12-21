@@ -187,7 +187,7 @@ canvas {
 
 /* Modal Content Box */
 .modal-content {
-  background: linear-gradient(145deg, #0e3261, #020140); /* Subtle blue gradient */
+  background: linear-gradient(145deg, #010058, #010058); /* Subtle blue gradient */
   color: white;
   padding: 30px;
   width: 350px;
@@ -342,7 +342,7 @@ canvas {
 
 #updateModal {
   width: 300px;
-  height: 250px;
+  height: 240px;
   background-color: #020140;
   display: none;
   position: absolute;
@@ -357,6 +357,7 @@ canvas {
 
 .update-header{
   text-align: center;
+  width: 100%;
 }
 
 .update-label{
@@ -365,7 +366,7 @@ canvas {
   flex-direction: column; /* Align items in a column */
   gap: 18px; /* Optional: Add space between labels */
   margin-top: 15px;
-  margin-left: 18px;
+  margin-left: 27px;
 }
 
 .update-label label{
@@ -673,5 +674,14 @@ canvas {
   display: table;
   width: 100%;
   table-layout: fixed;
+}
+
+.leaflet-popup-content {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+.leaflet-popup-content hr {
+  border: none;
+  border-top: 1px solid #ccc;
 }
 

@@ -22,10 +22,47 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+// Initialize the map
 var map = L.map('map').setView([11.046556122600492, 124.002498512228], 13);
+
+// Add the tile layer
 var tileUrl = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=5ac93f341e474e76bec352bd73074fd1';
 var layer = new L.TileLayer(tileUrl, { maxZoom: 18, minZoom: 3 });
 map.addLayer(layer);
+
+// Add right-click functionality
+map.on('contextmenu', function (e) {
+  var lat = e.latlng.lat;
+  var lng = e.latlng.lng;
+
+  // Create a popup with placeholder content and set text color to black
+  var popup = L.popup()
+    .setLatLng(e.latlng)
+    .setContent(`
+      <div style="min-width: 150px; color: black;">
+        Address:</b> <span id="location-name" style="color:black">Fetching...</span> <br>
+        Latitude: ${lat.toFixed(6)}<br>
+        Longitude: ${lng.toFixed(6)}<br>
+        <hr>
+      </div>
+    `)
+    .openOn(map);
+
+  // Call reverse geocoding API
+  fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+    .then((response) => response.json())
+    .then((data) => {
+      var address = data.display_name || "Address not found";
+      // Update the popup content with the location name
+      document.getElementById('location-name').textContent = address;
+    })
+    .catch((error) => {
+      console.error('Error fetching location:', error);
+      document.getElementById('location-name').textContent = 'Error fetching address';
+    });
+});
+
+
 
 // Get form elements
 let location = document.getElementById("sensorlocation");
