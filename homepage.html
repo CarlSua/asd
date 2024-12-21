@@ -82,27 +82,20 @@
 
     <!-- UPDATE MODAL -->
     <div id="updateModal" class="modal">
-      <div class="modal-content">
-        <h3 class="modal-header">Update Sensor</h3>
+        <h3 class="update-header">Update Sensor</h3>
 
         
-        <div class="modal-field">
+        <div class="update-label">
           <label for="update-location">Location:</label>
-          <input type="text" id="update-location" class="modal-input">
-        </div>
-
-        <div class="modal-field">
           <label for="update-sensorlatitude">Latitude:</label>
-          <input type="text" id="update-sensorlatitude" class="modal-input" >
+          <label for="update-sensorlongitude">Longitude:</label>
+          <label for="update-status">Status:</label>
         </div>
 
-        <div class="modal-field">
-          <label for="update-sensorlongitude">Longitude:</label>
+        <div class="update-input">
+          <input type="text" id="update-location" class="modal-input">
+          <input type="text" id="update-sensorlatitude" class="modal-input" >
           <input type="text" id="update-sensorlongitude" class="modal-input">
-        </div>
-        
-        <div class="modal-field">
-          <label for="update-status">Status:</label>
           <select id="update-status" class="modal-input">
             <option value="Working">Working</option>
             <option value="Under Maintenance">Under Maintenance</option>
@@ -110,19 +103,20 @@
             <option value="Pending Repair">Pending Repair</option>
           </select>
         </div>
-        <div class="modal-buttons">
+
+        <div class="update-buttons">
           <button id="save-update-btn" class="modal-button save">Save</button>
           <button onclick="closeupdate()" class="modal-button cancel">Cancel</button>
         </div>
-      </div>
     </div>
 
     
 
     <!-- Modal for viewing history -->
     <div id="historyModal">
+      <button id="closeButton" onclick="closeModal()">X</button>
       <div id="fill">
-          <button id="closeButton" onclick="closeModal()">X</button>
+          
           <label for="location">Choose a location:</label>
           <select id="location" name="location">
             
@@ -131,6 +125,7 @@
           <input type="date" id="startDate" name="startDate">
           <label for="endDate">End Date:</label>
           <input type="date" id="endDate" name="endDate">
+          <button> View Data</button>
       </div>
       <div id="historycontainer">
         <table id="sensorTable">
@@ -155,7 +150,27 @@
   
       <!-- Left Container -->
       <div id="leftContainer">
-          <p>Left Content</p>
+          <!-- Choose Location -->
+          <div class="form-group">
+            <label for="locationSelect">Choose Location:</label>
+            <select id="locationSelect" class="form-control" >
+              <option value="location1">Location 1</option>
+              <option value="location2">Location 2</option>
+              <option value="location3">Location 3</option>
+            </select>
+            <button> View Data</button>
+          </div>
+      
+          <!-- Select Timeframe -->
+          <div class="form-group">
+            <label for="timeframeSelect">Select Timeframe:</label>
+            <select id="timeframeSelect" class="form-control">
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </div>
       </div>
   
       <!-- Right Container -->

@@ -340,8 +340,14 @@ function populateLocationOptions() {
   const sensorsRef = ref(db, "sensors"); // Reference to the 'sensors' node in Firebase RTDB
   onValue(sensorsRef, (snapshot) => {
     const sensors = snapshot.val();
-    const locationSelect = document.getElementById("location");
 
+    // Get references to both dropdowns
+    const locationSelectHistory = document.getElementById("location");
+    const locationSelectAnalytics = document.getElementById("locationSelect");
+
+    // Clear existing options
+    locationSelectHistory.innerHTML = "";
+    locationSelectAnalytics.innerHTML = "";
 
     if (sensors) {
       // Create a Set to store unique locations
@@ -357,10 +363,18 @@ function populateLocationOptions() {
 
       // Convert the Set back to an array and create an option for each unique location
       locationsSet.forEach((location) => {
-        const option = document.createElement("option");
-        option.value = location; // Set the location as the option value
-        option.textContent = location; // Set the location as the option text
-        locationSelect.appendChild(option);
+        const optionHistory = document.createElement("option");
+        const optionAnalytics = document.createElement("option");
+
+        // Set the location as the option value and text
+        optionHistory.value = location;
+        optionHistory.textContent = location;
+        optionAnalytics.value = location;
+        optionAnalytics.textContent = location;
+
+        // Append options to both dropdowns
+        locationSelectHistory.appendChild(optionHistory);
+        locationSelectAnalytics.appendChild(optionAnalytics);
       });
     } else {
       console.log("No sensors data available.");
