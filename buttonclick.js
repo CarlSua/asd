@@ -14,11 +14,6 @@ function closesensor() {
   document.getElementById("sensorModal").style.display = "none";
 }
 
-window.addEventListener("click", (event) => {
-  if (event.target === sensorModal) {
-    sensorModal.style.display = "none";
-  }
-});
 
 viewHistoryButton.addEventListener('click', () => {
   historyModal.style.display = 'flex';

@@ -158,7 +158,7 @@ input{
 }
 
 #logout{
-  margin-left: 900px;
+  margin-left: 850px;
 }
 
 
@@ -175,14 +175,13 @@ canvas {
 .sensormodal {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 20%;
+  left: 10%;
   background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  border-radius: 10px;
 }
 
 /* Modal Content Box */
@@ -455,7 +454,7 @@ canvas {
   color: white;
   background-color:#020140 ;
   position: absolute;
-  right: 20%;
+  right: 10%;
   border-radius: 5px;
 }
 

@@ -157,9 +157,9 @@ function retrieveAndUpdateSensors() {
         const marker = createCustomMarker(lat, long, location, reading, status, key);
 
         const parsedReading = parseFloat(reading);
-        if (parsedReading <= 0.7) {
+        if (parsedReading >= 6) {
           addWarningIcon(lat, long, key); // Add warning icon for critical reading
-        } else {
+        } else{
           removeWarningIcon(key); // Remove warning icon if reading improves
         }
 
@@ -168,15 +168,14 @@ function retrieveAndUpdateSensors() {
           marker.openPopup();
         }
       });
+      
     } else {
       console.log("No data available.");
     }
   });
 
   // Optionally, use setInterval to force periodic checks
-  setInterval(() => {
-    retrieveAndUpdateSensors();
-  }, 30000); // Call the function every 30 seconds or any desired interval
+  // Call the function every 30 seconds or any desired interval
 }
 
 const warningIcons = {};
@@ -210,13 +209,13 @@ function createCustomMarker(lat, long, location, reading, status, sensorId) {
   const parsedReading = parseFloat(reading);
 
   let markerColor;
-  if (parsedReading <= 0.7) {
+  if (parsedReading >= 6) {
     markerColor = 'red';
-  } else if (parsedReading <= 1) {
+  } else if (parsedReading >= 4) {
     markerColor = 'orange';
-  } else if (parsedReading <= 2) {
+  } else if (parsedReading >= 2) {
     markerColor = 'yellow';
-  } else if (parsedReading <= 5) {
+  } else if (parsedReading >= 1) {
     markerColor = 'blue';
   } else {
     markerColor = 'grey';
@@ -420,7 +419,7 @@ function populateLocationOptions() {
 }
 
 
-const historyRef = ref(db, 'history/1'); // Path to the '1' node under 'history'
+const historyRef = ref(db, 'history/Cebu Roosevelt Memorial Colleges'); // Path to the '1' node under 'history'
 
 // Function to fetch data from RTDB and update the table
 function fetchHistoryData() {
@@ -453,7 +452,7 @@ function fetchHistoryData() {
         row.appendChild(timestampCell);
 
         const readingCell = document.createElement("td");
-        readingCell.textContent = reading; // Display the reading (water level)
+        readingCell.textContent = parseFloat(reading).toFixed(2); // Display the reading (water level)
         row.appendChild(readingCell);
 
         // Append the row to the table body
@@ -479,12 +478,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const lineChart = new Chart(ctx, {
       type: 'line',
       data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
+          labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', 
+                  '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', 
+                  '20:00', '21:00', '22:00', '23:00'],
           datasets: [
               {
                   label: 'DATA VISUALIZATION',
-                  data: [10, 20, 15, 25, 30],
-                  borderColor: 'rgba(75, 192, 192, 1)',
+                  data: [0,0.5,0,0,0,1,0.5,0],
+                  borderColor: 'rgb(1, 37, 114)',
                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
                   borderWidth: 2,
                   tension: 0.4, /* Smooth curves */
@@ -504,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function () {
               x: {
                   title: {
                       display: true,
-                      text: 'Months',
+                      text: 'Daily',
                   },
               },
               y: {
