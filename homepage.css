@@ -454,7 +454,7 @@ canvas {
   color: white;
   background-color:#020140 ;
   position: absolute;
-  right: 10%;
+  right: 25%;
   border-radius: 5px;
 }
 
@@ -499,6 +499,7 @@ canvas {
 #fill select{
   color: #020140;
   border: 1px solid;
+  width: 240px;
 }
 
 #historycontainer{
@@ -586,8 +587,19 @@ canvas {
 }
 
 .form-group{
-  margin-right: 20px;
+  margin-top: 3px;
 }
+
+.form-group1{
+  left: 32%;
+  top: 12px;
+  position: absolute;
+}
+
+.form-group1 label, input{
+  color: black;
+}
+
 
 .form-control{
   color: black;
@@ -599,7 +611,7 @@ canvas {
   color: white;
   background-color:#020140 ;
   position: absolute;
-  right: 28%;
+  right: 20%;
   border-radius: 5px;
 }
 
@@ -682,5 +694,153 @@ canvas {
 .leaflet-popup-content hr {
   border: none;
   border-top: 1px solid #ccc;
+}
+
+#createAccountModal{
+  display: none;
+  position: fixed;
+  height: 380px;
+  width: 300px;
+  background-color: #010058 ;
+  z-index: 1000;
+  color: #cfe2ff;
+  left: 15%;
+  top: 20%;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+#createAccountForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#closeaccmodal{
+  position: absolute;
+  right: 10%;
+}
+
+#createAccountForm input, option{
+  color: black;
+  height: 25px;
+  width: 200px;
+  padding: 2px;
+}
+
+#createAccountForm select{
+  color: black;
+  height: 28px;
+  width: 210px;
+  padding: 2px;
+  margin-top: 15px;
+}
+
+#createAccountModal button{
+  margin-top: 20px;
+  height: 30px;
+  width: 150px;
+  background-color: #ff9800;
+  border-radius: 5px;
+}
+
+
+
+#users {
+  position: fixed;
+  display: none;
+  padding: 20px;
+  background-color: #020140;
+  border-radius: 5px;
+  width: 1000px;
+  height: 450px;
+  top: 17%;
+  left: 15%;
+  margin: auto;
+  z-index: 1000;
+  flex-direction: column;
+}
+
+#userup {
+  display: flex;
+}
+
+#userup h4{
+  font-size: 30px;
+  color: #ffffff;
+  margin-top: 13px;
+}
+
+#search-filter {
+  margin-left: 50px;
+  margin-top: 5px;
+}
+
+#search-filter input,select,button,::placeholder {
+  font-size: 12px;
+  color: black;
+  margin-right: 10px; 
+}
+
+
+
+#searchUser,
+#filterRole,
+#searchBtn {
+  padding: 3px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#usertable {
+  margin-top: 20px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+#usertable table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+#usertable th,
+#usertable td {
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 15px;
+}
+
+#usertable th {
+  background-color: #001a80;
+}
+
+#usertable tbody tr:nth-child(even) {
+  background-color: #021860;
+}
+
+#usertable tbody tr:hover {
+  background-color: #003399;
+}
+
+#usertable button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#usertable button:first-child {
+  background-color: #007bff;
+  color: #fff;
+}
+
+#usertable button:last-child {
+  background-color: #ff4d4d;
+  color: #fff;
 }
 

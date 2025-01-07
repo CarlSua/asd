@@ -39,7 +39,7 @@
       <button class="btn" id="sensor">add new sensor</button>
       <button class="btn" id="viewhistory">View History</button>
       <button class="btn" id="viewAnalytics">View Analytics</button>
-      <button class="btn" id="createaccount">Create Account</button>
+      <button class="btn" id="createaccount" onclick="createacc()">Create Account</button>
       <button class="btn" id="logout" onclick="logout()">Log out</button>
     </div>
 
@@ -160,17 +160,14 @@
             </select>
             <button> View Data</button>
           </div>
-      
-          <!-- Select Timeframe -->
-          <div class="form-group">
-            <label for="timeframeSelect">Select Timeframe:</label>
-            <select id="timeframeSelect" class="form-control">
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
-            </select>
+    
+          <div class="form-group1">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate">
           </div>
+          
       </div>
   
       <!-- Right Container -->
@@ -178,11 +175,73 @@
         <canvas id="lineChart"></canvas>
       </div>
     </div>
-    
-    
-    
-    
 
+    <!-- Modal for creating an account -->
+    <div id="createAccountModal">
+        <span id="closeaccmodal" onclick="closeCreateAccountModal();" class="close-btn">&times;</span>
+        
+        <form id="createAccountForm">
+          <h4>Create Account</h4>
+          <input type="text" id="fullName" required placeholder="Full Name"/>
+          <input type="email" id="email" required placeholder="Email Address" />
+          <input type="text" id="office" required placeholder="Office Assigned" />
+          <select id="userType" required>
+            <option value="" disabled selected>Select User Type</option>
+            <option value="admin">Admin</option>
+            <option value="regular">Regular User</option>
+            <option value="guest">Guest</option>
+          </select>
+          <input type="text" id="username" required placeholder="Username" />
+          
+          <input type="password" id="password" required placeholder="Password" />
+          <input type="password" id="confirmPassword" required placeholder="Confirm Password" />
+          
+          <button type="submit" id="createAccountBtn">Create Account</button>
+        </form>
+    </div>
+
+    <div id="users">
+      <span id="closeaccmodal" onclick="closeusers();" class="close-btn">&times;</span>
+      <div id="userup">
+        <h4>User Lists</h4>
+        <div id="search-filter">
+          
+          <input type="text" id="searchUser" placeholder="Search by name or email" />
+          <select id="filterRole">
+            <option value="">All Roles</option>
+            <option value="admin">Active</option>
+            <option value="user">Inactive</option>
+          </select>
+          <button id="searchBtn">Search</button>
+        </div>
+      </div>
+    
+      <div id="usertable">
+        <table>
+          <thead>
+            <tr>
+              <th>Userid</th>
+              <th>Fullname</th>
+              <th>Email</th>
+              <th>Office Assigned</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              
+                
+              </td>
+            </tr>
+            <!-- Additional rows can be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  
     <script src="buttonclick.js"></script>
     <script type="module" src="functions.js"> </script>
     </script>

@@ -47,3 +47,15 @@ function closeupdate() {
 function logout() {
   window.location.href = 'login.html';
 }
+
+function closeCreateAccountModal() {
+  document.getElementById("createAccountModal").style.display = "none";
+}
+
+function createacc() {
+  document.getElementById("users").style.display = "flex";
+}
+
+function closeusers() {
+  document.getElementById("users").style.display = "none";
+}

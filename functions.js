@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', function () {
           datasets: [
               {
                   label: 'DATA VISUALIZATION',
-                  data: [0,0.5,0,0,0,1,0.5,0],
+                  data: [0,0.5,0,0,0,1,0.5,0,0,0,0,0,0,0,0.2,0.2,0,0.2,0,0.3,0,0.3],
                   borderColor: 'rgb(1, 37, 114)',
                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
                   borderWidth: 2,
@@ -516,5 +516,71 @@ document.addEventListener('DOMContentLoaded', function () {
               },
           },
       },
+  });
+});
+
+document.getElementById('createAccountForm').addEventListener('submit', (event) => {
+  event.preventDefault(); // Prevent default form submission
+
+  // Get input values from the form
+  const fullName = document.getElementById('fullName').value;
+  const email = document.getElementById('email').value;
+  const office = document.getElementById('office').value;
+  const userType = document.getElementById('userType').value;
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  // Reference to the "users" in the RTDB
+  const usersRef = ref(db, 'users');
+
+  // Retrieve the current maximum userId
+  onValue(usersRef, (snapshot) => {
+    let maxUserId = 0;
+
+    if (snapshot.exists()) {
+      const users = snapshot.val();
+      Object.keys(users).forEach((key) => {
+        const user = users[key];
+        if (user.userId > maxUserId) {
+          maxUserId = user.userId;
+        }
+      });
+    }
+
+    // Increment the maxUserId for the new user
+    const newUserId = maxUserId + 1;
+
+    // Create a new user object
+    const newUser = {
+      userId: newUserId,
+      fullName: fullName,
+      email: email,
+      office: office,
+      userType: userType,
+      username: username,
+      password: password, // Consider hashing this in a real application
+      dateCreated: new Date().toISOString()
+    };
+
+    // Add the new user to the database
+    set(ref(db, `users/${newUserId}`), newUser)
+      .then(() => {
+        alert("Account created successfully!");
+        document.getElementById('createAccountForm').reset(); // Clear the form
+        closeCreateAccountModal(); // Close the modal
+      })
+      .catch((error) => {
+        alert("Error creating account: " + error.message);
+        console.error(error);
+      });
+  }, {
+    onlyOnce: true // Ensure the listener retrieves data only once
   });
 });
