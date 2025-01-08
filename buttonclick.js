@@ -33,10 +33,12 @@ function closeModal() {
   document.getElementById('historyModal').style.display = 'none';
 }
 
-
-
 function closeModal2() {
   document.getElementById('analyticsmodal').style.display = 'none';
+}
+
+function closemodal3() {
+  document.getElementById('users').style.display = 'none';
 }
 
 function closeupdate() {
@@ -46,6 +48,11 @@ function closeupdate() {
 
 function logout() {
   window.location.href = 'login.html';
+}
+
+
+function createbtn() {
+  document.getElementById('createAccountModal').style.display = 'flex';
 }
 
 function closeCreateAccountModal() {

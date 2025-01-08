@@ -237,8 +237,8 @@ canvas {
 
 /* Button Styling */
 #addSensorForm button {
-  width: 100%;
-  padding: 12px;
+  width: 250px;
+  padding: 10px;
   background-color: #ff9800; /* Orange for contrast */
   color: white;
   font-weight: bold;
@@ -248,6 +248,7 @@ canvas {
   margin-top: 20px;
   transition: background-color 0.3s ease;
   font-size: 16px;
+  margin-right: 20px;
 }
 
 #addSensorForm button:hover {
@@ -690,6 +691,7 @@ canvas {
 .leaflet-popup-content {
   font-family: Arial, sans-serif;
   font-size: 14px;
+  max-width: 300px;
 }
 .leaflet-popup-content hr {
   border: none;
@@ -702,7 +704,7 @@ canvas {
   height: 380px;
   width: 300px;
   background-color: #010058 ;
-  z-index: 1000;
+  z-index: 4;
   color: #cfe2ff;
   left: 15%;
   top: 20%;
@@ -759,41 +761,41 @@ canvas {
   top: 17%;
   left: 15%;
   margin: auto;
-  z-index: 1000;
+  z-index: 3;
   flex-direction: column;
 }
 
-#userup {
-  display: flex;
-}
-
 #userup h4{
+  position: absolute;
   font-size: 30px;
-  color: #ffffff;
-  margin-top: 13px;
-}
-
-#search-filter {
-  margin-left: 50px;
   margin-top: 5px;
+  margin-left: 3px;
 }
 
-#search-filter input,select,button,::placeholder {
-  font-size: 12px;
+#userup input{
+  margin-left: 170px;
+}
+
+#userup button{
+  width: 100px;
+}
+#userup select{
+  width: 150px;
+}
+
+
+
+#userup input,select,button{
+  padding: 3px;
   color: black;
-  margin-right: 10px; 
-}
-
-
-
-#searchUser,
-#filterRole,
-#searchBtn {
-  padding: 3px 10px;
-  font-size: 14px;
+  max-width: 300px;
   border-radius: 5px;
-  border: 1px solid #ccc;
 }
+
+#userup select,button{
+  margin-left: 20px;
+}
+
 
 #usertable {
   margin-top: 20px;
@@ -817,6 +819,8 @@ canvas {
 
 #usertable th {
   background-color: #001a80;
+  text-align: center;
+  font-weight: 300;
 }
 
 #usertable tbody tr:nth-child(even) {
@@ -842,5 +846,12 @@ canvas {
 #usertable button:last-child {
   background-color: #ff4d4d;
   color: #fff;
+}
+
+#createbtn{
+  position: absolute;
+  left: 83%;
+  top: 87%;
+  padding: 5px;
 }
 

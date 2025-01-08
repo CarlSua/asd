@@ -23,7 +23,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // Initialize the map
-var map = L.map('map').setView([11.046556122600492, 124.002498512228], 13);
+var map = L.map('map').setView([11.046556122600492, 124.002498512228], 14);
 
 // Add the tile layer
 var tileUrl = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=5ac93f341e474e76bec352bd73074fd1';
@@ -157,7 +157,7 @@ function retrieveAndUpdateSensors() {
         const marker = createCustomMarker(lat, long, location, reading, status, key);
 
         const parsedReading = parseFloat(reading);
-        if (parsedReading >= 6) {
+        if (parsedReading >= 35) {
           addWarningIcon(lat, long, key); // Add warning icon for critical reading
         } else{
           removeWarningIcon(key); // Remove warning icon if reading improves
@@ -209,13 +209,13 @@ function createCustomMarker(lat, long, location, reading, status, sensorId) {
   const parsedReading = parseFloat(reading);
 
   let markerColor;
-  if (parsedReading >= 6) {
+  if (parsedReading >= 35) {
     markerColor = 'red';
-  } else if (parsedReading >= 4) {
+  } else if (parsedReading >= 25) {
     markerColor = 'orange';
-  } else if (parsedReading >= 2) {
+  } else if (parsedReading >= 20) {
     markerColor = 'yellow';
-  } else if (parsedReading >= 1) {
+  } else if (parsedReading >= 10) {
     markerColor = 'blue';
   } else {
     markerColor = 'grey';
@@ -234,10 +234,10 @@ function createCustomMarker(lat, long, location, reading, status, sensorId) {
   const popupContent = `
     <div style="color: black; text-align: left;">
       Location: ${location}<br>
-      Reading: ${parsedReading ? parsedReading : "No reading available"}<br>
+      Reading: ${parsedReading ? `${parsedReading} cm` : "No reading available"}<br>
       Status: ${status}<br>
-      <button id="delete-btn-${sensorId}" style="margin-top: 10px; color: black;">Delete Sensor</button>
-      <button id="update-btn-${sensorId}" style="margin-top: 10px; color: black;">Update Sensor</button>
+      <button id="delete-btn-${sensorId}" style="margin-top: 10px; color: white; background-color: #020140; ">Delete Sensor</button>
+      <button id="update-btn-${sensorId}" style="margin-top: 10px; color: white; background-color: #020140;">Update Sensor</button>
     </div>
   `;
 
@@ -584,3 +584,136 @@ document.getElementById('createAccountForm').addEventListener('submit', (event) 
     onlyOnce: true // Ensure the listener retrieves data only once
   });
 });
+
+// Get form elements for creating an account
+const createAccountForm = document.getElementById("createAccountForm");
+const fullNameInput = document.getElementById("fullName");
+const emailInput = document.getElementById("email");
+const officeInput = document.getElementById("office");
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
+const confirmPasswordInput = document.getElementById("confirmPassword");
+
+// Function to handle account creation
+// Function to handle account creation with incrementing user ID
+function createAccount() {
+  if (passwordInput.value !== confirmPasswordInput.value) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  const newUser = {
+    fullName: fullNameInput.value.trim(),
+    email: emailInput.value.trim(),
+    office: officeInput.value.trim(),
+    username: usernameInput.value.trim(),
+    password: passwordInput.value.trim(), // Ideally, hash the password before storing it
+    usertype: "user", // Default user type
+    dateCreated: new Date().toISOString(),
+  };
+
+  const usersRef = ref(db, "users");
+
+  onValue(
+    usersRef,
+    (snapshot) => {
+      const users = snapshot.val() || {};
+      const usernameExists = Object.values(users).some(
+        (user) => user.username === newUser.username
+      );
+      const emailExists = Object.values(users).some(
+        (user) => user.email === newUser.email
+      );
+
+      if (usernameExists) {
+        alert("Username already exists. Please choose a different one.");
+        return;
+      }
+
+      if (emailExists) {
+        alert("Email already registered. Please use a different email.");
+        return;
+      }
+
+      const userIds = Object.keys(users).map(Number);
+      const nextUserId = userIds.length > 0 ? Math.max(...userIds) + 1 : 1;
+
+      set(ref(db, `users/${nextUserId}`), newUser)
+        .then(() => {
+          alert("Account created successfully!");
+          createAccountForm.reset(); // Clear the form
+          closeCreateAccountModal(); // Close the modal if applicable
+        })
+        .catch((error) => {
+          alert("Error creating account: " + error.message);
+          console.error(error);
+        });
+    },
+    { onlyOnce: true }
+  );
+}
+
+createAccountForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Prevent form submission
+  createAccount();
+});
+
+// Function to fetch users from Firebase and populate the table in real time
+function fetchUsers() {
+  const usersTableBody = document.querySelector("#usertable tbody");
+  const usersRef = ref(db, "users");
+
+  // Clear and repopulate the table in real time
+  onValue(usersRef, (snapshot) => {
+    const users = snapshot.val();
+    usersTableBody.innerHTML = ""; // Clear the table
+
+    if (users) {
+      Object.keys(users).forEach((userId) => {
+        const user = users[userId];
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${userId}</td>
+          <td>${user.fullName || "N/A"}</td>
+          <td>${user.email || "N/A"}</td>
+          <td>${user.office || "N/A"}</td>
+          <td>${user.usertype === "admin" ? "Inactive" : "Active"}</td>
+          <td>
+            <button onclick="editUser('${userId}')">Edit</button>
+            <button onclick="deleteUser('${userId}')">Delete</button>
+          </td>
+        `;
+
+        usersTableBody.appendChild(row);
+      });
+    } else {
+      const noDataRow = document.createElement("tr");
+      noDataRow.innerHTML = `<td colspan="6">No users found.</td>`;
+      usersTableBody.appendChild(noDataRow);
+    }
+  });
+}
+
+// Fetch users on page load and enable real-time updates
+fetchUsers();
+
+// Call the function to load users on page load
+document.addEventListener("DOMContentLoaded", fetchUsers);
+
+
+
+function deleteUser(userId) {
+  if (confirm("Are you sure you want to delete this user?")) {
+    const userRef = ref(db, `users/${userId}`);
+    remove(userRef)
+      .then(() => {
+        alert("User deleted successfully!");
+        fetchUsers(); // Refresh the user list
+      })
+      .catch((error) => {
+        alert("Error deleting user: " + error.message);
+        console.error(error);
+      });
+  }
+}
